@@ -1,7 +1,7 @@
 package me.flashyreese.mods.sodiumextra.client;
 
-import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraHud;
 import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraGameOptions;
+import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraHud;
 import net.caffeinemc.caffeineconfig.CaffeineConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

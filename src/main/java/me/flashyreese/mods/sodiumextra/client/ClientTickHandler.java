@@ -8,8 +8,8 @@ import java.util.Comparator;
 import java.util.Queue;
 
 public class ClientTickHandler {
-    private int averageFps, lowestFps, highestFps;
     private final Queue<Integer> fpsQueue = EvictingQueue.create(200);
+    private int averageFps, lowestFps, highestFps;
 
     public void onClientInitialize() {
         ClientTickEvents.START_CLIENT_TICK.register(minecraftClient -> {
