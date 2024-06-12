@@ -548,7 +548,6 @@ public class SodiumExtraGameOptionPages {
 
         Text translatable = Text.translatable(key);
         if (!Texts.hasTranslation(translatable)) {
-            System.out.println(key);
             translatable = Text.translatable(
                     "sodium-extra.option.".concat(category).concat(".tooltips"),
                     translatableName(identifier, category)
