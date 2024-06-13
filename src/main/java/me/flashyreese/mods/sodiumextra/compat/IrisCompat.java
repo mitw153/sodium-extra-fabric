@@ -25,7 +25,8 @@ public class IrisCompat {
             terrainFormat = (VertexFormat) terrainField.get(null);
 
             irisPresent = true;
-        } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException | IllegalAccessException |
+                 InvocationTargetException e) {
             irisPresent = false;
         }
     }

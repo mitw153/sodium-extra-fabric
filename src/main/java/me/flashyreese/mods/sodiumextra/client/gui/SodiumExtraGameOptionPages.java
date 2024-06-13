@@ -439,13 +439,13 @@ public class SodiumExtraGameOptionPages {
                 )
                 .build());
         groups.add(OptionGroup.createBuilder()
-                        .add(OptionImpl.createBuilder(boolean.class, vanillaOpts)
-                                .setName(Text.translatable("sodium-extra.option.advanced_item_tooltips"))
-                                .setTooltip(Text.translatable("sodium-extra.option.advanced_item_tooltips.tooltip"))
-                                .setControl(TickBoxControl::new)
-                                .setBinding((opts, value) -> opts.advancedItemTooltips = value, opts -> opts.advancedItemTooltips)
-                                .build()
-                        )
+                .add(OptionImpl.createBuilder(boolean.class, vanillaOpts)
+                        .setName(Text.translatable("sodium-extra.option.advanced_item_tooltips"))
+                        .setTooltip(Text.translatable("sodium-extra.option.advanced_item_tooltips.tooltip"))
+                        .setControl(TickBoxControl::new)
+                        .setBinding((opts, value) -> opts.advancedItemTooltips = value, opts -> opts.advancedItemTooltips)
+                        .build()
+                )
                 .build());
         groups.add(OptionGroup.createBuilder()
                 .add(OptionImpl.createBuilder(boolean.class, sodiumExtraOpts)
@@ -548,7 +548,6 @@ public class SodiumExtraGameOptionPages {
 
         Text translatable = Text.translatable(key);
         if (!Texts.hasTranslation(translatable)) {
-            System.out.println(key);
             translatable = Text.translatable(
                     "sodium-extra.option.".concat(category).concat(".tooltips"),
                     translatableName(identifier, category)
