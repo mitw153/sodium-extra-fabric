@@ -1,7 +1,9 @@
 package me.flashyreese.mods.sodiumextra.mixin.optimizations.beacon_beam_rendering;
 
+import me.flashyreese.mods.sodiumextra.common.util.ColorRGBA;
 import me.flashyreese.mods.sodiumextra.compat.IrisCompat;
 import net.caffeinemc.mods.sodium.api.math.MatrixHelper;
+import net.caffeinemc.mods.sodium.api.util.ColorARGB;
 import net.caffeinemc.mods.sodium.api.vertex.buffer.VertexBufferWriter;
 import net.caffeinemc.mods.sodium.api.vertex.format.common.ModelVertex;
 import net.minecraft.block.entity.BeaconBlockEntity;
@@ -57,7 +59,8 @@ public abstract class MixinBeaconBlockEntityRenderer {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             long buffer = stack.nmalloc(2 * 16 * ModelVertex.STRIDE);
             long ptr = buffer;
-            ptr = writeBeamLayerVertices(ptr, matrices, color, yOffset, height, 0.0F, innerRadius, innerRadius, 0.0F, innerX3, 0.0F, 0.0F, innerZ4, innerV1, innerV2);
+            // Note: ModelVertex color takes in ABGR
+            ptr = writeBeamLayerVertices(ptr, matrices, ColorARGB.toABGR(color), yOffset, height, 0.0F, innerRadius, innerRadius, 0.0F, innerX3, 0.0F, 0.0F, innerZ4, innerV1, innerV2);
             VertexBufferWriter.of(vertexConsumerProvider.getBuffer(RenderLayer.getBeaconBeam(textureId, false))).push(stack, buffer, 16, ModelVertex.FORMAT);
 
             matrices.pop();
@@ -69,7 +72,7 @@ public abstract class MixinBeaconBlockEntityRenderer {
             innerV1 = (float) maxY * heightScale + innerV2;
 
             buffer = ptr;
-            ptr = writeBeamLayerVertices(ptr, matrices, ColorHelper.Argb.withAlpha(32, color), yOffset, height, innerX1, outerZ1, outerRadius, innerZ2, innerX3, outerRadius, outerRadius, outerRadius, innerV1, innerV2);
+            ptr = writeBeamLayerVertices(ptr, matrices, ColorARGB.toABGR(color, 32), yOffset, height, innerX1, outerZ1, outerRadius, innerZ2, innerX3, outerRadius, outerRadius, outerRadius, innerV1, innerV2);
             VertexBufferWriter.of(vertexConsumerProvider.getBuffer(RenderLayer.getBeaconBeam(textureId, true))).push(stack, buffer, 16, ModelVertex.FORMAT);
         }
         matrices.pop();
