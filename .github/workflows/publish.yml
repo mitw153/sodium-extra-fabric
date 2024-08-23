@@ -54,12 +54,10 @@ jobs:
           loaders: ${{ matrix.platform }}
 
           dependencies: |
-            sodium | depends | *
-            fabric-api | depends | *
-            reeses-sodium-options | recommends | *
-            irisshaders | recommends | *
-            iris | recommends | *
+            sodium
+            reeses-sodium-options(optional)
+            irisshaders(optional)
+            iris(optional)
 
           files: |
             ${{ matrix.platform }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
-            ${{ matrix.platform }}/build/libs/*-@(dev|sources|javadoc|dev-shadow).jar
