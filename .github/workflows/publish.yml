@@ -25,6 +25,15 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            ${{ github.workspace }}/neoforge/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ github.workspace }}/neoforge/build/libs/*-@(dev|sources|javadoc|dev-shadow).jar
+            ${{ github.workspace }}/fabric/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ github.workspace }}/fabric/build/libs/*-@(dev|sources|javadoc|dev-shadow).jar
   publish:
     needs: build
     runs-on: ubuntu-22.04
@@ -36,6 +45,10 @@ jobs:
           - platform: neoforge
             name: NeoForge
     steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
       - name: Publish ${{ matrix.name }} to Modrinth, CurseForge & GitHub
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
@@ -60,4 +73,5 @@ jobs:
             iris(optional)
 
           files: |
-            ${{matrix.platform}}/build/libs/*.jar
+            ${{ github.workspace }}/${{ matrix.platform }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ github.workspace }}/${{ matrix.platform }}/build/libs/*-@(dev|sources|javadoc|dev-shadow).jar
