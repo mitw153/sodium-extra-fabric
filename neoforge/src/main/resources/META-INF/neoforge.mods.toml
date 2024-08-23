@@ -1,0 +1,34 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "LGPLv3"
+
+[[mods]]
+modId = "sodium_extra"
+
+version = "${version}"
+displayName = "Sodium Extra"
+
+logoFile = "icon.png" #optional
+
+authors = "FlashyReese"
+
+description = '''
+Features that shouldn't be in Sodium.
+'''
+
+[[dependencies.sodium_extra]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20.4,1.21.1)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.sodium_extra]]
+modId = "sodium"
+type = "required"
+versionRange = "[0.6.0-beta.1,0.6.0)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "sodium-extra.mixins.json"
