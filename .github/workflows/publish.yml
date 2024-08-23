@@ -60,4 +60,4 @@ jobs:
             iris(optional)
 
           files: |
-            ${{ matrix.platform }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{matrix.platform}}/build/libs/*.jar
