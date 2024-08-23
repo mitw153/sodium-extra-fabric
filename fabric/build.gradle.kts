@@ -87,3 +87,31 @@ tasks {
         from(rootDir.resolve("LICENSE.txt"))
     }
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifactId = base.archivesName.get()
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            name = "FlashyReeseReleases"
+            url = uri("https://maven.flashyreese.me/releases")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+        maven {
+            name = "FlashyReeseSnapshots"
+            url = uri("https://maven.flashyreese.me/snapshots")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
+}

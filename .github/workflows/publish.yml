@@ -6,7 +6,7 @@ on:
       - published
 
 jobs:
-  publish:
+  build:
     if: github.repository_owner == 'FlashyReese'
     runs-on: self-hosted
     steps:
@@ -25,8 +25,19 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-      - name: Publish to Modrinth & CurseForge
-        uses: Kir-Antipov/mc-publish@v3.3
+  publish:
+    needs: build
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        include:
+          - platform: fabric
+            name: Fabric
+          - platform: neoforge
+            name: NeoForge
+    steps:
+      - name: Publish ${{ matrix.name }} to Modrinth, CurseForge & GitHub
+        uses: Kir-Antipov/mc-publish@v3.3.0
         with:
           modrinth-id: PtjYWJkn
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
@@ -36,11 +47,21 @@ jobs:
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+          name: '[${{ matrix.name }}] ${{ github.event.release.name }}'
+          version: '${{ github.event.release.tag_name }}+${{ matrix.platform }}'
           version-type: release
-          loaders: fabric
+
+          loaders: ${{ matrix.platform }}
+
           dependencies: |
             sodium | depends | *
             fabric-api | depends | *
             reeses-sodium-options | recommends | *
             irisshaders | recommends | *
             iris | recommends | *
+
+          files: |
+            ${{ matrix.platform }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ matrix.platform }}/build/libs/*-@(dev|sources|javadoc|dev-shadow).jar
+
+          version-resolver: latest
