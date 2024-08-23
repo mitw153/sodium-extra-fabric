@@ -23,5 +23,12 @@ versionRange = "[1.20.4,1.21.1)"
 ordering = "NONE"
 side = "CLIENT"
 
+[[dependencies.sodium_extra]]
+modId = "sodium"
+type = "required"
+versionRange = "[0.6.0-beta.1,0.6.0)"
+ordering = "NONE"
+side = "CLIENT"
+
 [[mixins]]
 config = "sodium-extra.mixins.json"

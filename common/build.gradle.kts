@@ -6,10 +6,6 @@ plugins {
     id("fabric-loom") version "1.7.2"
 }
 
-repositories {
-    maven("https://maven.parchmentmc.org/")
-}
-
 val MINECRAFT_VERSION: String by rootProject.extra
 val PARCHMENT_VERSION: String? by rootProject.extra
 val FABRIC_LOADER_VERSION: String by rootProject.extra
@@ -45,7 +41,7 @@ dependencies {
     modCompileOnly("net.fabricmc.fabric-api:fabric-renderer-api-v1:3.2.9+1172e897d7")
     implementation(group = "com.lodborg", name = "interval-tree", version = "1.0.0")
 
-    modImplementation(files(rootDir.resolve("sodium-fabric.jar")))
+    modImplementation(/*files(rootDir.resolve("sodium-fabric.jar"))*/ "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
 }
 
 tasks.withType<AbstractRemapJarTask>().forEach {

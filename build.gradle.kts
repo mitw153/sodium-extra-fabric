@@ -3,16 +3,16 @@ plugins {
     id("fabric-loom") version ("1.7.2") apply (false)
 }
 
-val MINECRAFT_VERSION by extra { "1.21" }
-val NEOFORGE_VERSION by extra { "21.0.76-beta" }
-val FABRIC_LOADER_VERSION by extra { "0.15.11" }
-val FABRIC_API_VERSION by extra { "0.100.4+1.21" }
+val MINECRAFT_VERSION by extra { "1.21.1" }
+val NEOFORGE_VERSION by extra { "21.1.23" }
+val FABRIC_LOADER_VERSION by extra { "0.16.2" }
+val FABRIC_API_VERSION by extra { "0.102.1+1.21.1" }
 
 // This value can be set to null to disable Parchment.
-val PARCHMENT_VERSION by extra { "2024.06.23" }
+val PARCHMENT_VERSION by extra { null }
 
 // https://semver.org/
-val MOD_VERSION by extra { "0.5.7" }
+val MOD_VERSION by extra { "0.6.0-beta.1" }
 
 allprojects {
     apply(plugin = "java")
@@ -24,6 +24,11 @@ tasks.withType<JavaCompile> {
 }
 
 subprojects {
+    repositories {
+        maven("https://maven.parchmentmc.org/")
+        maven("https://api.modrinth.com/maven")
+    }
+
     apply(plugin = "maven-publish")
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(21)

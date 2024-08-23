@@ -40,7 +40,7 @@ dependencies {
 
     implementation("com.google.code.findbugs:jsr305:3.0.1")
     compileOnly(project(":common"))
-    modImplementation(files(rootDir.resolve("sodium-fabric.jar")))
+    modImplementation(/*files(rootDir.resolve("sodium-fabric.jar"))*/ "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
 
 }
 

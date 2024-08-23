@@ -4,8 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import me.flashyreese.mods.sodiumextra.client.render.vertex.formats.TextureColorVertex;
 import me.flashyreese.mods.sodiumextra.client.render.vertex.formats.TextureVertex;
-import me.flashyreese.mods.sodiumextra.common.util.ColorRGBA;
 import net.caffeinemc.mods.sodium.api.util.ColorABGR;
+import net.caffeinemc.mods.sodium.api.util.ColorARGB;
 import net.caffeinemc.mods.sodium.api.vertex.buffer.VertexBufferWriter;
 import net.caffeinemc.mods.sodium.api.vertex.format.common.ColorVertex;
 import net.minecraft.client.gui.GuiGraphics;
@@ -45,8 +45,8 @@ public abstract class MixinGuiGraphics {
     private void fillGradient(VertexConsumer vertexConsumer, int startX, int startY, int endX, int endY, int z, int colorStart, int colorEnd, CallbackInfo ci) {
         VertexBufferWriter writer = VertexBufferWriter.of(vertexConsumer);
         Matrix4f matrix4f = this.pose.last().pose();
-        colorStart = ColorRGBA.fromOrToABGR(ColorRGBA.fromARGB(colorStart));
-        colorEnd = ColorRGBA.fromOrToABGR(ColorRGBA.fromARGB(colorEnd));
+        colorStart = ColorARGB.toABGR(colorStart);
+        colorEnd = ColorARGB.toABGR(colorEnd);
         try (MemoryStack stack = MemoryStack.stackPush()) {
             final long buffer = stack.nmalloc(4 * ColorVertex.STRIDE);
             long ptr = buffer;
@@ -88,7 +88,7 @@ public abstract class MixinGuiGraphics {
         }
         VertexConsumer vertexConsumer = this.bufferSource.getBuffer(type);
         VertexBufferWriter writer = VertexBufferWriter.of(vertexConsumer);
-        color = ColorRGBA.fromOrToABGR(ColorRGBA.fromARGB(color));
+        color = ColorARGB.toABGR(color);
         try (MemoryStack stack = MemoryStack.stackPush()) {
             final long buffer = stack.nmalloc(4 * ColorVertex.STRIDE);
             long ptr = buffer;
