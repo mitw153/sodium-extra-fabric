@@ -36,11 +36,8 @@ dependencies {
     addEmbeddedFabricModule("fabric-rendering-data-attachment-v1")
     addEmbeddedFabricModule("fabric-rendering-fluids-v1")
     addEmbeddedFabricModule("fabric-resource-loader-v0")
-    include(implementation(group = "com.lodborg", name = "interval-tree", version = "1.0.0"))
-
-    implementation("com.google.code.findbugs:jsr305:3.0.1")
     compileOnly(project(":common"))
-    modImplementation(/*files(rootDir.resolve("sodium-fabric.jar"))*/ "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
+    modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
 
 }
 

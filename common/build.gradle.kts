@@ -38,10 +38,7 @@ dependencies {
     addDependentFabricModule("fabric-renderer-api-v1")
     addDependentFabricModule("fabric-rendering-data-attachment-v1")
 
-    modCompileOnly("net.fabricmc.fabric-api:fabric-renderer-api-v1:3.2.9+1172e897d7")
-    implementation(group = "com.lodborg", name = "interval-tree", version = "1.0.0")
-
-    modImplementation(/*files(rootDir.resolve("sodium-fabric.jar"))*/ "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
+    modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
 }
 
 tasks.withType<AbstractRemapJarTask>().forEach {
