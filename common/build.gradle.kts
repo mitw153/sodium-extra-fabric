@@ -11,6 +11,8 @@ val PARCHMENT_VERSION: String? by rootProject.extra
 val FABRIC_LOADER_VERSION: String by rootProject.extra
 val FABRIC_API_VERSION: String by rootProject.extra
 
+val SODIUM_VERSION: String by rootProject.extra
+
 // This trick hides common tasks in the IDEA list.
 tasks.configureEach {
     group = null
@@ -38,10 +40,7 @@ dependencies {
     addDependentFabricModule("fabric-renderer-api-v1")
     addDependentFabricModule("fabric-rendering-data-attachment-v1")
 
-    modCompileOnly("net.fabricmc.fabric-api:fabric-renderer-api-v1:3.2.9+1172e897d7")
-    implementation(group = "com.lodborg", name = "interval-tree", version = "1.0.0")
-
-    modImplementation(/*files(rootDir.resolve("sodium-fabric.jar"))*/ "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
+    modImplementation("maven.modrinth:sodium:$SODIUM_VERSION-fabric")
 }
 
 tasks.withType<AbstractRemapJarTask>().forEach {
@@ -50,10 +49,10 @@ tasks.withType<AbstractRemapJarTask>().forEach {
 
 loom {
     mixin {
-        defaultRefmapName = "sodium-extra.refmap.json"
+        defaultRefmapName = "${rootProject.name}.refmap.json"
     }
 
-    accessWidenerPath = file("src/main/resources/sodium-extra.accesswidener")
+    accessWidenerPath = file("src/main/resources/${rootProject.name}.accesswidener")
 }
 
 publishing {

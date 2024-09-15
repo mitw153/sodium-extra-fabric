@@ -1,5 +1,6 @@
 package me.flashyreese.mods.sodiumextra.mixin.sodium.resolution;
 
+import com.mojang.blaze3d.platform.Monitor;
 import com.mojang.blaze3d.platform.VideoMode;
 import com.mojang.blaze3d.platform.Window;
 import me.flashyreese.mods.sodiumextra.client.gui.options.control.SliderControlExtended;
@@ -31,7 +32,7 @@ public class MixinSodiumGameOptionPages {
     private static MinecraftOptionsStorage vanillaOpts;
 
     @Inject(method = "general", at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/sodium/client/gui/options/OptionGroup;createBuilder()Lnet/caffeinemc/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 1, shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILSOFT, remap = false)
-    private static void general(CallbackInfoReturnable<OptionPage> cir, List<OptionGroup> groups) {
+    private static void general(CallbackInfoReturnable<OptionPage> cir, Monitor monitor, List<OptionGroup> groups) {
         Window window = Minecraft.getInstance().getWindow();
 
         groups.add(OptionGroup.createBuilder()

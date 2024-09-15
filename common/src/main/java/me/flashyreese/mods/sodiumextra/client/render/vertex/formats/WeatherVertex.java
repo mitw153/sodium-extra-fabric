@@ -1,16 +1,15 @@
 package me.flashyreese.mods.sodiumextra.client.render.vertex.formats;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.caffeinemc.mods.sodium.api.vertex.attributes.common.ColorAttribute;
 import net.caffeinemc.mods.sodium.api.vertex.attributes.common.LightAttribute;
 import net.caffeinemc.mods.sodium.api.vertex.attributes.common.PositionAttribute;
 import net.caffeinemc.mods.sodium.api.vertex.attributes.common.TextureAttribute;
-import net.caffeinemc.mods.sodium.api.vertex.format.VertexFormatDescription;
-import net.caffeinemc.mods.sodium.api.vertex.format.VertexFormatRegistry;
 import org.lwjgl.system.MemoryUtil;
 
 public final class WeatherVertex {
-    public static final VertexFormatDescription FORMAT = VertexFormatRegistry.instance().get(DefaultVertexFormat.PARTICLE);
+    public static final VertexFormat FORMAT = DefaultVertexFormat.PARTICLE;
     public static final int STRIDE = 28;
     private static final int OFFSET_POSITION = 0;
     private static final int OFFSET_TEXTURE = 12;

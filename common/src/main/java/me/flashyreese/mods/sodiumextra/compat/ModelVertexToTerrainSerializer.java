@@ -1,6 +1,6 @@
 package me.flashyreese.mods.sodiumextra.compat;
 
-import net.caffeinemc.mods.sodium.api.vertex.format.common.ModelVertex;
+import net.caffeinemc.mods.sodium.api.vertex.format.common.EntityVertex;
 import net.caffeinemc.mods.sodium.api.vertex.serializer.VertexSerializer;
 import org.lwjgl.system.MemoryUtil;
 
@@ -12,7 +12,7 @@ public class ModelVertexToTerrainSerializer implements VertexSerializer {
             // todo: overlay src + 24L
             MemoryUtil.memCopy(src + 28L, dst + 24L, 8); // Copies light and normal
 
-            src += ModelVertex.STRIDE;
+            src += EntityVertex.STRIDE;
             dst += IrisCompat.getTerrainFormat().getVertexSize();
         }
     }
