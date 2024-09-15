@@ -10,9 +10,10 @@ val NEOFORGE_VERSION: String by rootProject.extra
 val MOD_VERSION: String by rootProject.extra
 
 val SODIUM_VERSION: String by rootProject.extra
+val ARCHIVE_NAME: String by rootProject.extra
 
 base {
-    archivesName = "${rootProject.name}-neoforge"
+    archivesName = "$ARCHIVE_NAME-neoforge"
 }
 
 repositories {
