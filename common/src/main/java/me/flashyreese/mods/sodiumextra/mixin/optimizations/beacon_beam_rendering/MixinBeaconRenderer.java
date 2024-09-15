@@ -6,7 +6,7 @@ import me.flashyreese.mods.sodiumextra.compat.IrisCompat;
 import net.caffeinemc.mods.sodium.api.math.MatrixHelper;
 import net.caffeinemc.mods.sodium.api.util.ColorARGB;
 import net.caffeinemc.mods.sodium.api.vertex.buffer.VertexBufferWriter;
-import net.caffeinemc.mods.sodium.api.vertex.format.common.ModelVertex;
+import net.caffeinemc.mods.sodium.api.vertex.format.common.EntityVertex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -59,11 +59,11 @@ public abstract class MixinBeaconRenderer {
         float innerV1 = (float) maxY * heightScale * (0.5F / innerRadius) + innerV2;
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            long buffer = stack.nmalloc(2 * 16 * ModelVertex.STRIDE);
+            long buffer = stack.nmalloc(2 * 16 * EntityVertex.STRIDE);
             long ptr = buffer;
             // Note: ModelVertex color takes in ABGR
             ptr = writeBeamLayerVertices(ptr, poseStack, ColorARGB.toABGR(color), yOffset, height, 0.0F, innerRadius, innerRadius, 0.0F, innerX3, 0.0F, 0.0F, innerZ4, innerV1, innerV2);
-            VertexBufferWriter.of(multiBufferSource.getBuffer(RenderType.beaconBeam(resourceLocation, false))).push(stack, buffer, 16, ModelVertex.FORMAT);
+            VertexBufferWriter.of(multiBufferSource.getBuffer(RenderType.beaconBeam(resourceLocation, false))).push(stack, buffer, 16, EntityVertex.FORMAT);
 
             poseStack.popPose();
             innerX1 = -outerRadius;
@@ -75,7 +75,7 @@ public abstract class MixinBeaconRenderer {
 
             buffer = ptr;
             ptr = writeBeamLayerVertices(ptr, poseStack, ColorARGB.toABGR(color, 32), yOffset, height, innerX1, outerZ1, outerRadius, innerZ2, innerX3, outerRadius, outerRadius, outerRadius, innerV1, innerV2);
-            VertexBufferWriter.of(multiBufferSource.getBuffer(RenderType.beaconBeam(resourceLocation, true))).push(stack, buffer, 16, ModelVertex.FORMAT);
+            VertexBufferWriter.of(multiBufferSource.getBuffer(RenderType.beaconBeam(resourceLocation, true))).push(stack, buffer, 16, EntityVertex.FORMAT);
         }
         poseStack.popPose();
     }
@@ -116,8 +116,8 @@ public abstract class MixinBeaconRenderer {
         float transformedY = MatrixHelper.transformPositionY(positionMatrix, x, y, z);
         float transformedZ = MatrixHelper.transformPositionZ(positionMatrix, x, y, z);
 
-        ModelVertex.write(ptr, transformedX, transformedY, transformedZ, color, u, v, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, normal);
-        ptr += ModelVertex.STRIDE;
+        EntityVertex.write(ptr, transformedX, transformedY, transformedZ, color, u, v, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, normal);
+        ptr += EntityVertex.STRIDE;
         return ptr;
     }
 

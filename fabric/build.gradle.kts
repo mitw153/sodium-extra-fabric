@@ -10,8 +10,10 @@ val FABRIC_LOADER_VERSION: String by rootProject.extra
 val FABRIC_API_VERSION: String by rootProject.extra
 val MOD_VERSION: String by rootProject.extra
 
+val SODIUM_VERSION: String by rootProject.extra
+
 base {
-    archivesName.set("sodium-extra-fabric")
+    archivesName.set("${project.name}-fabric")
 }
 
 dependencies {
@@ -37,15 +39,15 @@ dependencies {
     addEmbeddedFabricModule("fabric-rendering-fluids-v1")
     addEmbeddedFabricModule("fabric-resource-loader-v0")
     compileOnly(project(":common"))
-    modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.1-fabric")
+    modImplementation("maven.modrinth:sodium:$SODIUM_VERSION-fabric")
 
 }
 
 loom {
-    accessWidenerPath.set(project(":common").file("src/main/resources/sodium-extra.accesswidener"))
+    accessWidenerPath.set(project(":common").file("src/main/resources/${rootProject.name}.accesswidener"))
 
     @Suppress("UnstableApiUsage")
-    mixin { defaultRefmapName.set("sodium-extra.refmap.json") }
+    mixin { defaultRefmapName.set("${rootProject.name}.refmap.json") }
 
     runs {
         named("client") {
